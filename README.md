@@ -1,36 +1,32 @@
-
-
-
-
 # 爬虫：
 
-save_search_pc_responses.py
+`save_search_pc_responses.py`
 
 mitmproxy脚本，抓取需要的response。
 
 
 
-Selenium.py
+`Selenium.py`
 
-Selenium脚本，完成在特定网站（51job搜索界面）的翻页功能，每次翻页都会产生一个response。
+Selenium脚本，完成在特定网站（51job搜索界面）的翻页功能，每次翻页都会产生一个response。注意，偶尔会出现滑块验证，本次需要抓取的数据较少，因此采用手动解决。
 
 
 
-抓取排名信息：
+`51job_sele.py`
 
-一个静态的HTML网页，但使用responses库时出现了SSL相关的问题。最终用subprocess调用curl解决了。
+一个静态的HTML网页，但使用responses库时出现了SSL相关的问题，可以用subprocess调用curl解决。因为数据量较小，还是使用了Selenium进行抓取。
 
 
 
 # 数据清洗脚本
 
-final_progressing.ipynb
+`final_progressing.ipynb`
 
 完成指定的数据清洗功能
 
 
 
-json2excel_all.py
+`json2excel_all.py`
 
 把json文件转成excel
 
