@@ -28,73 +28,6 @@ from selenium.common.exceptions import NoSuchElementException
 import random
 
 
-def click_to_check():
-
-    """
-    通过点击来切换页面，暂未完成，不稳定，未使用
-    """
-
-    element_to_click_xpaths =[
-    '/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[3]/div[4]/div/div[2]/a[2]/span',
-    '/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[3]/div[4]/div/div[2]/a[3]/span',
-    '/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[3]/div[4]/div/div[2]/a[4]/span',
-    '/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[3]/div[4]/div/div[2]/a[5]/span',
-    '/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[3]/div[4]/div/div[2]/a[6]/span',
-    '/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[3]/div[4]/div/div[2]/a[6]/span',
-    '/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[3]/div[4]/div/div[2]/a[7]/span',
-    '/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[3]/div[4]/div/div[2]/a[8]/span',
-    ]
-
-    if total_pages==50:
-        open_selection_path='/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[4]/span'
-        open_selection = wait.until(EC.element_to_be_clickable((By.XPATH, open_selection_path)))
-        #open_selection.click()  
-
-
-        # 等待直到加载指示器不可见
-        wait.until(EC.invisibility_of_element_located(loading_indicator_locator))
-
-
-        open_selection = driver.find_element(By.XPATH, open_selection_path)
-        open_selection.click()
-        
-        size=0
-        for element_to_click_xpath in element_to_click_xpaths:
-            #sleep(5)
-            element_to_click = driver.find_element(By.XPATH, element_to_click_xpath)
-
-
-            # 等待直到加载指示器不可见
-            wait.until(EC.invisibility_of_element_located(loading_indicator_locator))
-
-            #element_to_click = wait.until(EC.element_to_be_clickable((By.XPATH, element_to_click_xpath)))
-            element_to_click.click()                    
-        #这里可以读取
-        # 假设您已经有了一个名为driver的WebDriver实例
-            
-            ''''
-            WebDriverWait(driver, 10).until(
-                lambda x: driver.execute_script("return document.readyState") == "complete"
-            )
-            '''
-            
-
-            #last_page_element = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "ul.el-pager li.number:last-child")))
-
-
-            # 等待直到加载指示器不可见
-            wait.until(EC.invisibility_of_element_located(loading_indicator_locator))
-            sleep(3)
-            last_page_element = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "ul.el-pager li.number:last-child")))
-
-            last_page_element = driver.find_element(By.CSS_SELECTOR, "ul.el-pager li.number:last-child")
-            total_pages = int(last_page_element.text)
-            size=size+1
-            print(function,area,size,total_pages)
-    else:
-        print(function,area,total_pages)    
-
-
 
 
 #检查页面是否含有职位元素
@@ -283,125 +216,198 @@ def check_pages_catch(url,combination,completed_combinations_set):
             #溢出了，跳出该循环，进入下一级筛选
 
 
-# 设置日志记录的配置
-logging.basicConfig(filename='script.log', filemode='a', format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
+
+def click_to_check():
+
+    """
+    通过点击来切换页面，暂未完成，不稳定，未使用
+    """
+
+    element_to_click_xpaths =[
+    '/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[3]/div[4]/div/div[2]/a[2]/span',
+    '/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[3]/div[4]/div/div[2]/a[3]/span',
+    '/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[3]/div[4]/div/div[2]/a[4]/span',
+    '/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[3]/div[4]/div/div[2]/a[5]/span',
+    '/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[3]/div[4]/div/div[2]/a[6]/span',
+    '/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[3]/div[4]/div/div[2]/a[6]/span',
+    '/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[3]/div[4]/div/div[2]/a[7]/span',
+    '/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[3]/div[4]/div/div[2]/a[8]/span',
+    ]
+
+    if total_pages==50:
+        open_selection_path='/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[4]/span'
+        open_selection = wait.until(EC.element_to_be_clickable((By.XPATH, open_selection_path)))
+        #open_selection.click()  
 
 
-
-options = ChromeOptions()
-#使用代理服务器，便于用Mitmproxy监听
-options.add_argument("--proxy-server=http://localhost:8080")
-# 忽略SSL错误
-options.add_argument("--ignore-ssl-errors=yes")
-options.add_argument("--ignore-certificate-errors")
-#禁用Blink引擎的某些特性，未指定
-options.add_argument("--disable-blink-features")
-#隐藏Selenium自动化控制的痕迹
-options.add_argument("--disable-blink-features=AutomationControlled")
-
-############
-#无界面模式
-#options.add_argument("--headless")
-############
-
-chromedriver_path = r"C:\chromedriver-win64\chromedriver.exe"
+        # 等待直到加载指示器不可见
+        wait.until(EC.invisibility_of_element_located(loading_indicator_locator))
 
 
-""" try:
-    times = int(input("输入需要爬取的数量，没有输入则爬取所有岗位"))
-except ValueError:
-    times = float('inf')  # 设置为无限大，表示爬取所有职位
- """
-times = float('inf')
-
-
-
-
-# 创建Service对象，并传入ChromeDriver的路径
-service = Service(executable_path=chromedriver_path)
-# 使用Service对象初始化Chrome WebDriver
-driver = webdriver.Chrome(service=service,options=options)
-
-
-wait = WebDriverWait(driver, 60)
-
-
-jobArea=['040000', '020000', '010000', '030200']
-
-function_Ac=['0404', '0405', '2D01', '2D02', '2D03', '0448', '0457']
-
-function_HR=['0601', '0602', '0611', '0603', '0604', '0605', '0626', '0606', '0609', '0610', '0629', '0607', '0608', '0627', '0628', '0630', '0635']
-
-
-function_IT = {
-    "Backend_Development_0100": ['0107', '0106', '0121', '0156', '0157', '0153', '0126', '0152', '0124', '0120', '0151', '0158', '0154', '0143', '0130', '0117', '0133', '0155', '0123', '0131', '0132', '0128'],
-    "Operation_Technical_Support_7900": ['7909', '7908', '7901', '7915', '7920', '7913', '7912', '7905', '7902', '7906', '0149', '7914', '7904', '7903', '0150', '7910', '7907', '7918', '7916', '7917'],
-    "Technical_Management_2600": ['2610', '2608', '2607', '2606', '2605', '7912', '7908', '7502', '2705', '2726', '2604', '2603', '2611', '2612'],
-    "Test_2700": ['2725', '2723', '2705', '2726', '2707', '2957', '2718', '2704', '2722', '2720', '2719', '2706', '2724', '7821', '2816'],
-    "Artificial_Intelligence_7300": ['7309', '7307', '7301', '7302', '7120', '7308', '7306'],
-    "Front_end_development_7200": ['7201', '7202'],
-    "Data_7500": ['7501', '7502', '7503', '7506', '7508', '7504', '7512', '7507', '7505', '7511', '7510'],
-    "Mobile_development_7700": ['7701', '7702', '7703', '7705'],
-    "Game_7800": ['7811', '7823', '7810', '7809'],
-    "Sales_technical_support_8400": ['8401', '8402', '8403', '8404']
-}
-
-companySize=['01','02','03','04','05','06','07']
-
-jobAreas = ['010000', '020000', '040000', '030200']  
-# jobArea代码
-# 040000 深圳
-# 020000 上海
-# 010000 北京
-# 030200 广州
-
-
-
-base_url = "https://we.51job.com/pc/search?searchType=2&sortType=0&metro=&degree=04,07&jobType=01"
-#基础url中已筛选，degree=04,07（本科，无学历要求），jobType=01（01，全职工作。注意，“全职工作”包括全职实习，需要后续进行数据清洗）
-
-
-
-completed_combinations_set = set()
-combination=''
-
-########################
-
-
-
-#同一文件夹下的completed_combinations.txt记录了已爬取的组合
-try:
-    with open(r'completed_combinations.txt', 'r') as file:
-        for line in file:
-            completed_combinations_set.add(line.strip())
-    print("completed combinations file found")
-except FileNotFoundError:
-    print("No completed combinations file found, starting fresh.")
-
-
-
-for list_name, function_codes in function_IT.items():
-    for function in function_codes:
-        combination=f"{function}-010000,020000,040000,030200-"
+        open_selection = driver.find_element(By.XPATH, open_selection_path)
+        open_selection.click()
         
-        url = f"{base_url}&jobArea=010000,020000,040000,030200&function={function}" 
+        size=0
+        for element_to_click_xpath in element_to_click_xpaths:
+            #sleep(5)
+            element_to_click = driver.find_element(By.XPATH, element_to_click_xpath)
 
 
-        if not check_pages_catch(url,combination,completed_combinations_set):
+            # 等待直到加载指示器不可见
+            wait.until(EC.invisibility_of_element_located(loading_indicator_locator))
 
-            for area in jobArea:
-                combination= f"{function}-{area}-"
-                url = f"{base_url}&jobArea={area}&function={function}" 
+            #element_to_click = wait.until(EC.element_to_be_clickable((By.XPATH, element_to_click_xpath)))
+            element_to_click.click()                    
+        #这里可以读取
+        # 假设您已经有了一个名为driver的WebDriver实例
+            
+            ''''
+            WebDriverWait(driver, 10).until(
+                lambda x: driver.execute_script("return document.readyState") == "complete"
+            )
+            '''
+            
+
+            #last_page_element = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "ul.el-pager li.number:last-child")))
+
+
+            # 等待直到加载指示器不可见
+            wait.until(EC.invisibility_of_element_located(loading_indicator_locator))
+            sleep(3)
+            last_page_element = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "ul.el-pager li.number:last-child")))
+
+            last_page_element = driver.find_element(By.CSS_SELECTOR, "ul.el-pager li.number:last-child")
+            total_pages = int(last_page_element.text)
+            size=size+1
+            print(function,area,size,total_pages)
+    else:
+        print(function,area,total_pages)    
+
+
+
+
+if __name__ == "__main__":
+
+
+    # 设置日志记录的配置
+    logging.basicConfig(filename='script.log', filemode='a', format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
+
+
+
+    options = ChromeOptions()
+    #使用代理服务器，便于用Mitmproxy监听
+    options.add_argument("--proxy-server=http://localhost:8080")
+    # 忽略SSL错误
+    options.add_argument("--ignore-ssl-errors=yes")
+    options.add_argument("--ignore-certificate-errors")
+    #禁用Blink引擎的某些特性，未指定
+    options.add_argument("--disable-blink-features")
+    #隐藏Selenium自动化控制的痕迹
+    options.add_argument("--disable-blink-features=AutomationControlled")
+
+    ############
+    #无界面模式
+    #options.add_argument("--headless")
+    ############
+
+    chromedriver_path = r"C:\chromedriver-win64\chromedriver.exe"
+
+
+    """ try:
+        times = int(input("输入需要爬取的数量，没有输入则爬取所有岗位"))
+    except ValueError:
+        times = float('inf')  # 设置为无限大，表示爬取所有职位
+    """
+    times = float('inf')
+
+
+
+
+    # 创建Service对象，并传入ChromeDriver的路径
+    service = Service(executable_path=chromedriver_path)
+    # 使用Service对象初始化Chrome WebDriver
+    driver = webdriver.Chrome(service=service,options=options)
+
+
+    wait = WebDriverWait(driver, 60)
+
+
+    jobArea=['040000', '020000', '010000', '030200']
+
+    function_Ac=['0404', '0405', '2D01', '2D02', '2D03', '0448', '0457']
+
+    function_HR=['0601', '0602', '0611', '0603', '0604', '0605', '0626', '0606', '0609', '0610', '0629', '0607', '0608', '0627', '0628', '0630', '0635']
+
+
+    function_IT = {
+        "Backend_Development_0100": ['0107', '0106', '0121', '0156', '0157', '0153', '0126', '0152', '0124', '0120', '0151', '0158', '0154', '0143', '0130', '0117', '0133', '0155', '0123', '0131', '0132', '0128'],
+        "Operation_Technical_Support_7900": ['7909', '7908', '7901', '7915', '7920', '7913', '7912', '7905', '7902', '7906', '0149', '7914', '7904', '7903', '0150', '7910', '7907', '7918', '7916', '7917'],
+        "Technical_Management_2600": ['2610', '2608', '2607', '2606', '2605', '7912', '7908', '7502', '2705', '2726', '2604', '2603', '2611', '2612'],
+        "Test_2700": ['2725', '2723', '2705', '2726', '2707', '2957', '2718', '2704', '2722', '2720', '2719', '2706', '2724', '7821', '2816'],
+        "Artificial_Intelligence_7300": ['7309', '7307', '7301', '7302', '7120', '7308', '7306'],
+        "Front_end_development_7200": ['7201', '7202'],
+        "Data_7500": ['7501', '7502', '7503', '7506', '7508', '7504', '7512', '7507', '7505', '7511', '7510'],
+        "Mobile_development_7700": ['7701', '7702', '7703', '7705'],
+        "Game_7800": ['7811', '7823', '7810', '7809'],
+        "Sales_technical_support_8400": ['8401', '8402', '8403', '8404']
+    }
+
+    companySize=['01','02','03','04','05','06','07']
+
+    jobAreas = ['010000', '020000', '040000', '030200']  
+    # jobArea代码
+    # 040000 深圳
+    # 020000 上海
+    # 010000 北京
+    # 030200 广州
+
+
+
+    base_url = "https://we.51job.com/pc/search?searchType=2&sortType=0&metro=&degree=04,07&jobType=01"
+    #基础url中已筛选，degree=04,07（本科，无学历要求），jobType=01（01，全职工作。注意，“全职工作”包括全职实习，需要后续进行数据清洗）
+
+
+
+    completed_combinations_set = set()
+    combination=''
+
+    ########################
+
+
+
+    #同一文件夹下的completed_combinations.txt记录了已爬取的组合
+    try:
+        with open(r'completed_combinations.txt', 'r') as file:
+            for line in file:
+                completed_combinations_set.add(line.strip())
+        print("completed combinations file found")
+    except FileNotFoundError:
+        print("No completed combinations file found, starting fresh.")
+
+
+
+    for list_name, function_codes in function_IT.items():
+        for function in function_codes:
+            combination=f"{function}-010000,020000,040000,030200-"
+            
+            url = f"{base_url}&jobArea=010000,020000,040000,030200&function={function}" 
+
+
+            if not check_pages_catch(url,combination,completed_combinations_set):
+
+                for area in jobArea:
+                    combination= f"{function}-{area}-"
+                    url = f"{base_url}&jobArea={area}&function={function}" 
+                    
+                    if not check_pages_catch(url,combination,completed_combinations_set):
+                        for Size in companySize:
+                            combination=f"{function}-{area}-{Size}"
+                            url=f"{base_url}&jobArea={area}&function={function}&companySize={Size}" 
+                            
+                            if not check_pages_catch(url,combination,completed_combinations_set):
+                                print("三级筛选依然溢出")
+
+
                 
-                if not check_pages_catch(url,combination,completed_combinations_set):
-                    for Size in companySize:
-                        combination=f"{function}-{area}-{Size}"
-                        url=f"{base_url}&jobArea={area}&function={function}&companySize={Size}" 
-                        
-                        if not check_pages_catch(url,combination,completed_combinations_set):
-                            print("三级筛选依然溢出")
-
-
-            
-            
+                
 
