@@ -1,3 +1,13 @@
+# gender-discrimination-hiring
+
+这个repo为获取以下论文的后续实验所需的数据使用的代码：
+
+#### *Li K.*, *L. Li*, *W. Si* and *Z. Xu* (2022) "**Childbearing Age and Gender Discrimination in Hiring Decisions: A Large-scale Field Experiment**" 
+
+论文地址： [here](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4199754).
+
+
+
 # 爬虫：
 
 `save_search_pc_responses.py`
