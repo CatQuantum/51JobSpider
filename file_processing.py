@@ -165,5 +165,6 @@ if __name__ == "__main__":
     # folder_path = r'C:\Users\Xue\Documents\GitHub\gender-discrimination-hiring\Add_com\to_be_send'
 
     # json2excel_all(folder_path)
+    json2excel(r'C:\Users\Xue\Documents\GitHub\gender-discrimination-hiring\job_listings.json')
     print()
     

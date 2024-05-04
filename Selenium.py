@@ -107,6 +107,7 @@ def wait_for_file(folder_path, page, timeout=30, poll_interval=0.5):
     等待直到特定页面的文件在指定文件夹中出现，或超时。
 
     :param folder_path: 文件夹路径。
+
     :param page: 页面编号。
     :param timeout: 最长等待时间（秒）。
     :param poll_interval: 轮询间隔时间（秒）。
@@ -336,8 +337,9 @@ if __name__ == "__main__":
 
     function_Ac=['0404', '0405', '2D01', '2D02', '2D03', '0448', '0457']
 
-    function_HR=['0601', '0602', '0611', '0603', '0604', '0605', '0626', '0606', '0609', '0610', '0629', '0607', '0608', '0627', '0628', '0630', '0635']
-
+    function_HR= {
+        "HR":['0601', '0602', '0611', '0603', '0604', '0605', '0626', '0606', '0609', '0610', '0629', '0607', '0608', '0627', '0628', '0630', '0635']
+    }
 
     function_IT = {
         "Backend_Development_0100": ['0107', '0106', '0121', '0156', '0157', '0153', '0126', '0152', '0124', '0120', '0151', '0158', '0154', '0143', '0130', '0117', '0133', '0155', '0123', '0131', '0132', '0128'],
@@ -386,7 +388,7 @@ if __name__ == "__main__":
 
 
 
-    for list_name, function_codes in function_IT.items():
+    for list_name, function_codes in function_HR.items():
         for function in function_codes:
             combination=f"{function}-010000,020000,040000,030200-"
             
