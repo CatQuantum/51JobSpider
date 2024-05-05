@@ -162,9 +162,9 @@ if __name__ == "__main__":
 
     # """ 
     # # 指定需要遍历的文件夹路径
-    # folder_path = r'C:\Users\Xue\Documents\GitHub\gender-discrimination-hiring\Add_com\to_be_send'
+    folder_path = r'D:\WorkFile\51job_data\data_IT_04072024\2024-4-6-1800-2000\merge'
 
-    # json2excel_all(folder_path)
-    json2excel(r'C:\Users\Xue\Documents\GitHub\gender-discrimination-hiring\job_listings.json')
+    json2excel_all(folder_path)
+    #json2excel(r'C:\Users\Xue\Documents\GitHub\gender-discrimination-hiring\job_listings.json')
     print()
     
