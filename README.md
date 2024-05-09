@@ -10,6 +10,7 @@
 
 # 爬虫：
 
+
 `save_search_pc_responses.py`
 
 mitmproxy脚本，抓取需要的response。
@@ -17,6 +18,8 @@ mitmproxy脚本，抓取需要的response。
 
 
 `Selenium.py`
+
+使用前请先下载Chromedrive：https://chromedriver.chromium.org/downloads
 
 Selenium脚本，完成在特定网站（51job搜索界面）的翻页功能，每次翻页都会产生一个response。注意，偶尔会出现滑块验证，本次需要抓取的数据较少，因此采用手动解决。
 
