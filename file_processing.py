@@ -155,6 +155,19 @@ def json2json(input_file_path,output_file_path):
 
     print(f"文件已成功转换并保存为 {output_file_path}")
 
+def excel2json(path):
+    # 读取 Excel 文件
+    df = pd.read_excel(path)
+
+    # 将数据转换为 JSON 格式，这里不进行实际的转换成字符串
+    json_data = df.to_json(orient='records', force_ascii=False)
+
+    # 将 JSON 字符串格式化
+    formatted_json = json.dumps(json.loads(json_data), indent=4, ensure_ascii=False)
+
+    # 将格式化的 JSON 数据写入文件
+    with open('to_catch_new_c.json', 'w', encoding='utf-8') as f:
+        f.write(formatted_json)
 
 
 
@@ -162,9 +175,12 @@ if __name__ == "__main__":
 
     # """ 
     # # 指定需要遍历的文件夹路径
-    folder_path = r'D:\WorkFile\51job_data\data_IT_04072024\2024-4-6-1800-2000\merge'
-
+    #file_path=r'C:\Users\Xue\Documents\GitHub\gender-discrimination-hiring\Data_IT\new\new_interest.json'
+    folder_path = r'C:\Users\Xue\Documents\GitHub\gender-discrimination-hiring\Data_IT\new\applied'
+    # excel2json(folder_path)
+    # random_split_json_array('to_catch_new_c.json')
+    #json2excel(file_path)
     json2excel_all(folder_path)
-    #json2excel(r'C:\Users\Xue\Documents\GitHub\gender-discrimination-hiring\job_listings.json')
+
     print()
     
